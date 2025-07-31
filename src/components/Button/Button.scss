@@ -1,0 +1,72 @@
+@use "../../scss/mixins.scss" as *;
+
+.button {
+    display: inline-flex;
+    line-height: 1.75;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-radius: toRem(5);
+    background-color: transparent;
+    border: none;
+    color: #42a5f5;
+    letter-spacing: 0.02857em;
+
+    &:disabled {
+        color: rgba(255, 255, 255, 0.3);
+        cursor: not-allowed;
+    }
+
+    &--small {
+        padding: toRem(4) toRem(10);
+    }
+
+    &--medium {
+        padding: toRem(6) toRem(16);
+    }
+
+    &--large {
+        padding: toRem(8) toRem(22);
+    }
+}
+
+.text-button {
+    transition: background-color 0.3s;
+    @media (any-hover: hover) {
+        &:hover:not(:disabled) {
+            background-color: rgba(25, 118, 210, 0.2);
+        }
+    }
+}
+
+.contained-button {
+    background-color: #90caf9;
+    color: #000;
+    transition: background-color 0.3s;
+    @media (any-hover: hover) {
+        &:hover:not(:disabled) {
+            background-color: #42a5f5;
+        }
+    }
+
+    &:disabled {
+        background-color: rgba(255, 255, 255, 0.12);
+    }
+}
+
+.outlined-button {
+    border: 1px solid #2b6fa6;
+    transition:
+        background-color 0.3s,
+        border-color 0.3s;
+    @media (any-hover: hover) {
+        &:hover:not(:disabled) {
+            background-color: rgba(66, 164, 245, 0.08);
+            border-color: #42a5f5;
+        }
+    }
+
+    &:disabled {
+        border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+}
