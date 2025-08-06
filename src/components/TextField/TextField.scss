@@ -1,5 +1,7 @@
 @use "../../scss/mixins.scss" as *;
 
+.text-field-container {
+}
 .text-field {
     font-size: toRem(16);
     line-height: 1.5;
@@ -42,6 +44,10 @@
         ._focus & {
             color: var(--text-field-focus, #1976d2);
         }
+
+        ._error & {
+            color: var(--text-field-focus, #d32f2f);
+        }
     }
 
     &__input {
@@ -49,7 +55,7 @@
         color: var(--text-field-text, rgba(0, 0, 0, 0.87));
         border: 1px solid var(--text-field-border, rgba(0, 0, 0, 0.4));
         width: 100%;
-        padding: toRem(16.5) toRem(14);
+
         border-radius: toRem(4);
         outline: none;
 
@@ -59,21 +65,40 @@
             opacity: 0;
         }
 
+        &--medium {
+            padding: toRem(16.5) toRem(14);
+        }
+        &--small {
+            padding: toRem(12) toRem(8);
+        }
         @media (any-hover: hover) {
-            &:hover {
+            &:hover:not(:disabled) {
                 border-color: var(--text-field-border-hover, rgba(0, 0, 0, 1));
             }
         }
-
+        &--placeholder-visible {
+            &::placeholder {
+                opacity: 1;
+            }
+        }
         ._focus & {
             &::placeholder {
                 opacity: 1;
             }
-            border-color: var(--text-field-focus, #1976d2);
+            border-color: var(--text-field-focus, #1976d2) !important;
         }
 
-        &--error {
+        ._error & {
             border-color: #d32f2f;
         }
+
+        &:disabled {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+    }
+
+    &__error-message {
+        color: #d32f2f;
+        margin: toRem(5) toRem(0);
     }
 }

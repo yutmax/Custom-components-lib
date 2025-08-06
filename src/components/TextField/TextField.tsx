@@ -3,9 +3,9 @@ import './TextField.scss';
 
 interface TextFieldProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
-  inputSize?: 'small' | 'medium' | 'large';
+  inputSize?: 'small' | 'medium';
   fullWidth?: boolean;
-  error?: boolean;
+  error?: boolean | string;
   background?: string;
   textColor?: string;
   labelColor?: string;
@@ -78,7 +78,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const inputClasses = [
       'text-field__input',
       `text-field__input--${inputSize}`,
-      error ? 'text-field__input--error' : '',
+      label ? '' : 'text-field__input--placeholder-visible',
       className,
     ]
       .join(' ')
@@ -95,21 +95,24 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     };
 
     return (
-      <div className={wrapperClasses} style={customStyles}>
-        {label && (
-          <label htmlFor={inputId} className={labelClasses}>
-            {label}
-          </label>
-        )}
-        <input
-          onChange={handleChange}
-          onFocus={handleFocuse}
-          onBlur={handleBlure}
-          id={inputId}
-          className={inputClasses}
-          ref={ref}
-          {...props}
-        />
+      <div className="text-field-container">
+        <div className={wrapperClasses} style={customStyles}>
+          {label && (
+            <label htmlFor={inputId} className={labelClasses}>
+              {label}
+            </label>
+          )}
+          <input
+            onChange={handleChange}
+            onFocus={handleFocuse}
+            onBlur={handleBlure}
+            id={inputId}
+            className={inputClasses}
+            ref={ref}
+            {...props}
+          />
+        </div>
+        {typeof error === 'string' && <p className="text-field__error-message">{error}</p>}
       </div>
     );
   },

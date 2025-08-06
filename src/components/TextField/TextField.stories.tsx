@@ -16,7 +16,7 @@ const meta: Meta<typeof TextField> = {
   argTypes: {
     inputSize: {
       control: { type: 'select' },
-      options: ['small', 'medium', 'large'],
+      options: ['small', 'medium'],
     },
     fullWidth: { control: 'boolean' },
     error: { control: 'boolean' },
@@ -35,7 +35,7 @@ export const Default: Story = {
 
 export const ErrorState: Story = {
   args: {
-    error: true,
+    error: 'some error',
     label: 'Field with error',
   },
 };
