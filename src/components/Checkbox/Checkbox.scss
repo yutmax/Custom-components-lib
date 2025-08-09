@@ -1,0 +1,155 @@
+@use "../../scss/mixins.scss" as *;
+
+$primary: #1976d2;
+$secondary: #9c27b0;
+$success: #2e7d32;
+$disabled: rgba(0, 0, 0, 0.38);
+
+.checkbox {
+    display: inline-flex;
+    position: relative;
+    cursor: pointer;
+    align-items: center;
+    gap: toRem(8);
+
+    &--primary {
+    }
+    &--secondary {
+    }
+    &--success {
+    }
+    &--disabled {
+        cursor: default;
+    }
+
+    &--small {
+        .checkbox__custom {
+            height: toRem(14);
+            width: toRem(14);
+
+            &::after {
+                left: 4px;
+                top: -1px;
+                width: 5px;
+                height: 10px;
+            }
+            &::before {
+                width: toRem(22);
+                height: toRem(22);
+            }
+        }
+    }
+    &--medium {
+        .checkbox__custom {
+            height: toRem(18);
+            width: toRem(18);
+
+            &::after {
+                left: 5px;
+                top: 1px;
+                width: 5px;
+                height: 10px;
+                border: solid white;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+            }
+            &::before {
+                width: toRem(26);
+                height: toRem(26);
+            }
+        }
+    }
+    &--large {
+        .checkbox__custom {
+            height: toRem(22);
+            width: toRem(22);
+
+            &::after {
+                left: 8px;
+                top: 1px;
+                width: 5px;
+                height: 13px;
+                border: solid white;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+            }
+            &::before {
+                width: toRem(30);
+                height: toRem(30);
+            }
+        }
+    }
+
+    &__input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    &__custom {
+        position: relative;
+        border: 2px solid rgba(0, 0, 0, 0.56);
+        border-radius: toRem(3);
+        margin-right: toRem(8);
+        transition: all 0.3s;
+
+        .checkbox--disabled & {
+            border-color: $disabled;
+        }
+
+        &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+
+            padding: toRem(8);
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background-color: rgba(25, 118, 210, 0);
+            transition: all 0.3s;
+        }
+
+        @media (any-hover: hover) {
+            .checkbox:not(.checkbox--disabled) &:hover {
+                &::before {
+                    background-color: rgba(25, 118, 210, 0.04);
+                }
+            }
+        }
+    }
+
+    &__input:checked ~ &__custom {
+        .checkbox--primary & {
+            background-color: $primary;
+            border-color: $primary;
+        }
+
+        .checkbox--secondary & {
+            background-color: $secondary;
+            border-color: $secondary;
+        }
+
+        .checkbox--success & {
+            background-color: $success;
+            border-color: $success;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            display: block;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+    }
+    &__label {
+        .checkbox--disabled & {
+            color: $disabled;
+        }
+    }
+}
