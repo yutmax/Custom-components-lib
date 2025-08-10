@@ -55,7 +55,7 @@ const Switch: React.FC<SwitchProps> = ({
         role="switch"
         aria-checked={checked !== undefined ? checked : isChecked}
         aria-labelledby={label ? `${switchId}-label` : undefined}
-        aria-disabled={disabled}
+        aria-disabled={disabled || undefined}
         {...props}
       />
       <span className="switch__slider" aria-hidden="true"></span>
