@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import './Checkbox.scss';
 
 export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -6,6 +6,9 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   color?: 'primary' | 'secondary' | 'success';
   size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
+  'aria-label'?: string;
+  'aria-describedby'?: string;
+  'aria-errormessage'?: string;
 }
 
 const Checkbox: React.FC<CheckboxProps> = ({
@@ -18,9 +21,16 @@ const Checkbox: React.FC<CheckboxProps> = ({
   onChange,
   className = '',
   style,
+  id,
+  'aria-label': ariaLabel,
+  'aria-describedby': ariaDescribedby,
+  'aria-errormessage': ariaErrormessage,
   ...props
 }) => {
   const [isChecked, setIsChecked] = useState(defaultChecked);
+
+  const generatedId = useId();
+  const checkboxId = id || generatedId;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!disabled) {
@@ -40,17 +50,27 @@ const Checkbox: React.FC<CheckboxProps> = ({
     .trim();
 
   return (
-    <label className={checkboxClass} style={style}>
+    <label className={checkboxClass} style={style} htmlFor={checkboxId}>
       <input
         type="checkbox"
+        id={checkboxId}
         checked={checked !== undefined ? checked : isChecked}
         onChange={handleChange}
         disabled={disabled}
         className="checkbox__input"
+        aria-label={ariaLabel || (label ? undefined : 'Checkbox')}
+        aria-describedby={ariaDescribedby}
+        aria-errormessage={ariaErrormessage}
+        aria-invalid={props['aria-invalid']}
+        aria-checked={checked !== undefined ? checked : isChecked}
         {...props}
       />
-      <span className="checkbox__custom"></span>
-      {label && <span className="checkbox__label">{label}</span>}
+      <span className="checkbox__custom" aria-hidden="true"></span>
+      {label && (
+        <span className="checkbox__label" id={`${checkboxId}-label`}>
+          {label}
+        </span>
+      )}
     </label>
   );
 };

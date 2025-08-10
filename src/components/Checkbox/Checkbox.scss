@@ -1,9 +1,5 @@
 @use "../../scss/mixins.scss" as *;
-
-$primary: #1976d2;
-$secondary: #9c27b0;
-$success: #2e7d32;
-$disabled: rgba(0, 0, 0, 0.38);
+@use "../../scss/colors.scss" as *;
 
 .checkbox {
     display: inline-flex;
@@ -151,5 +147,11 @@ $disabled: rgba(0, 0, 0, 0.38);
         .checkbox--disabled & {
             color: $disabled;
         }
+    }
+}
+
+.checkbox__input:focus-visible + .checkbox__custom {
+    &::before {
+        background-color: rgba(0, 0, 0, 0.1);
     }
 }
