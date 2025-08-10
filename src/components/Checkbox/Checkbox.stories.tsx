@@ -10,7 +10,7 @@ export default {
     color: {
       control: {
         type: 'select',
-        options: ['primary', 'secondary'],
+        options: ['primary', 'secondary', 'success'],
       },
     },
     disabled: { control: 'boolean' },

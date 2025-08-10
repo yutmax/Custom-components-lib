@@ -30,7 +30,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
   const [isChecked, setIsChecked] = useState(defaultChecked);
 
   const generatedId = useId();
-  const checkboxId = id || generatedId;
+  const checkboxId = id || `checkbox-${generatedId}`;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!disabled) {

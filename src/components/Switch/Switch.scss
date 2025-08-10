@@ -1,0 +1,151 @@
+@use "../../scss/mixins.scss" as *;
+@use "../../scss/colors.scss" as *;
+
+.switch {
+    display: inline-flex;
+    align-items: center;
+    gap: toRem(10);
+    cursor: pointer;
+
+    &--primary {
+        .switch__input:checked ~ .switch__slider {
+            background-color: lighten($primary, 20%);
+
+            &::before {
+                background-color: $primary;
+            }
+        }
+    }
+    &--secondary {
+        .switch__input:checked ~ .switch__slider {
+            background-color: lighten($secondary, 20%);
+
+            &::before {
+                background-color: $secondary;
+            }
+        }
+    }
+    &--success {
+        .switch__input:checked ~ .switch__slider {
+            background-color: lighten($success, 20%);
+
+            &::before {
+                background-color: $success;
+            }
+        }
+    }
+    &--disabled {
+        cursor: default;
+        .switch__slider {
+            background-color: rgba(0, 0, 0, 0.12);
+            &::before {
+                background-color: #f5f5f5;
+            }
+        }
+        .switch__label {
+            color: $disabled;
+        }
+
+        .switch__input:checked ~ .switch__slider {
+            background-color: rgba(0, 0, 0, 0.12);
+
+            &::before {
+                background-color: #f5f5f5;
+            }
+        }
+    }
+
+    &--small {
+        .switch__slider {
+            width: toRem(26);
+            height: toRem(10);
+            &::before {
+                width: toRem(16);
+                height: toRem(16);
+            }
+            &::after {
+                width: toRem(24);
+                height: toRem(24);
+            }
+        }
+    }
+    &--medium {
+    }
+
+    &__input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+
+        &:focus-visible + .switch__slider {
+            &::after {
+                background-color: rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        &:checked ~ .switch__slider {
+            &::before,
+            &::after {
+                transform: translate(toRem(17), -50%);
+            }
+        }
+    }
+
+    &__slider {
+        position: relative;
+        width: toRem(34);
+        height: toRem(14);
+        border-radius: toRem(100);
+        background-color: rgba(0, 0, 0, 0.4);
+
+        transition: background-color 0.3s;
+
+        &::before,
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 50%;
+            transform: translate(0px, -50%);
+            border-radius: 50%;
+
+            transition:
+                transform 0.3s ease,
+                background-color 0.3s ease;
+        }
+
+        &::after {
+            left: -8px;
+            width: toRem(38);
+            height: toRem(38);
+            width: toRem(30);
+            height: toRem(30);
+            background-color: rgba(0, 0, 0, 0);
+        }
+
+        &::before {
+            left: -3px;
+            width: toRem(20);
+            height: toRem(20);
+            background-color: #fafafa;
+
+            box-shadow:
+                0 2px 1px rgba(0, 0, 0, 0.2),
+                0 1px 1px rgba(0, 0, 0, 0.14),
+                0 1px 3px rgba(0, 0, 0, 0.12);
+        }
+
+        @media (any-hover: hover) {
+            .switch:not(.switch--disabled) &:hover {
+                &::after {
+                    background-color: rgba(0, 0, 0, 0.04);
+                }
+            }
+        }
+    }
+
+    &__label {
+    }
+}
