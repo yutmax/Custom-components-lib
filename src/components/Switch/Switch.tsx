@@ -3,6 +3,7 @@ import './Switch.scss';
 
 export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
+  labelPlacement?: 'start' | 'end' | 'top' | 'bottom';
   color?: 'primary' | 'secondary' | 'success';
   size?: 'small' | 'medium';
   disabled?: boolean;
@@ -10,6 +11,7 @@ export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputEle
 
 const Switch: React.FC<SwitchProps> = ({
   label,
+  labelPlacement = 'end',
   color = 'primary',
   size = 'medium',
   disabled = false,
@@ -37,6 +39,7 @@ const Switch: React.FC<SwitchProps> = ({
     'switch',
     `switch--${color}`,
     `switch--${size}`,
+    `label-${labelPlacement}`,
     disabled ? 'switch--disabled' : '',
     className,
   ]

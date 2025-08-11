@@ -13,6 +13,14 @@ export default {
         options: ['primary', 'secondary', 'success'],
       },
     },
+    size: {
+      options: ['small', 'medium', 'large'],
+      control: { type: 'select' },
+    },
+    labelPlacement: {
+      options: ['start', 'end', 'top', 'bottom'],
+      control: { type: 'select' },
+    },
     disabled: { control: 'boolean' },
     onChange: { action: 'changed' },
   },

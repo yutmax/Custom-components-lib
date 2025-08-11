@@ -16,6 +16,10 @@ export default {
       options: ['small', 'medium'],
       control: { type: 'select' },
     },
+    labelPlacement: {
+      options: ['start', 'end', 'top', 'bottom'],
+      control: { type: 'select' },
+    },
     disabled: { control: 'boolean' },
     onChange: { action: 'changed' },
   },

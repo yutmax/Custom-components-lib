@@ -3,6 +3,7 @@ import './Checkbox.scss';
 
 export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
+  labelPlacement?: 'start' | 'end' | 'top' | 'bottom';
   color?: 'primary' | 'secondary' | 'success';
   size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
@@ -13,6 +14,7 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
 
 const Checkbox: React.FC<CheckboxProps> = ({
   label,
+  labelPlacement = 'end',
   color = 'primary',
   size = 'medium',
   disabled = false,
@@ -43,6 +45,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
     'checkbox',
     `checkbox--${color}`,
     `checkbox--${size}`,
+    `label-${labelPlacement}`,
     disabled ? 'checkbox--disabled' : '',
     className,
   ]

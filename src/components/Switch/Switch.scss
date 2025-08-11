@@ -4,7 +4,7 @@
 .switch {
     display: inline-flex;
     align-items: center;
-    gap: toRem(10);
+    gap: toRem(12);
     cursor: pointer;
 
     &--primary {
@@ -148,4 +148,13 @@
 
     &__label {
     }
+}
+.label-start {
+    flex-direction: row-reverse;
+}
+.label-top {
+    flex-direction: column-reverse;
+}
+.label-bottom {
+    flex-direction: column;
 }
