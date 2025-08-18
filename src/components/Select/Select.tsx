@@ -153,4 +153,4 @@ const SelectItem: React.FC<SelectItemProps> = ({
   );
 };
 
-export { Select, SelectItem };
+export { Select, SelectItem, SelectItemProps, SelectProps };

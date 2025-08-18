@@ -119,4 +119,6 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 );
 
 TextField.displayName = 'TextField';
+
+export { TextFieldProps };
 export default TextField;

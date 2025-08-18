@@ -1,7 +1,7 @@
 import React, { useId, useState } from 'react';
 import './Checkbox.scss';
 
-export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
   labelPlacement?: 'start' | 'end' | 'top' | 'bottom';
   color?: 'primary' | 'secondary' | 'success';
@@ -78,4 +78,5 @@ const Checkbox: React.FC<CheckboxProps> = ({
   );
 };
 
+export { CheckboxProps };
 export default Checkbox;

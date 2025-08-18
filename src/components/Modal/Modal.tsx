@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './Modal.scss';
 
-export interface ModalProps {
+interface ModalProps {
   open: boolean;
   onClose: () => void;
   children: React.ReactNode;
@@ -42,4 +42,5 @@ const Modal: React.FC<ModalProps> = ({ open, onClose, children, className }) => 
   );
 };
 
+export { ModalProps };
 export default Modal;

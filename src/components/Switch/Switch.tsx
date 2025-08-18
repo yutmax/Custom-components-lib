@@ -1,7 +1,7 @@
 import React, { useId, useState } from 'react';
 import './Switch.scss';
 
-export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
   labelPlacement?: 'start' | 'end' | 'top' | 'bottom';
   color?: 'primary' | 'secondary' | 'success';
@@ -71,4 +71,5 @@ const Switch: React.FC<SwitchProps> = ({
   );
 };
 
+export { SwitchProps };
 export default Switch;
