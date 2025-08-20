@@ -25,8 +25,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
   style,
   id,
   'aria-label': ariaLabel,
-  'aria-describedby': ariaDescribedby,
-  'aria-errormessage': ariaErrormessage,
+
   ...props
 }) => {
   const [isChecked, setIsChecked] = useState(defaultChecked);
@@ -52,6 +51,8 @@ const Checkbox: React.FC<CheckboxProps> = ({
     .join(' ')
     .trim();
 
+  const ariaLabelValue = ariaLabel ?? (label ? undefined : 'Checkbox');
+
   return (
     <label className={checkboxClass} style={style} htmlFor={checkboxId}>
       <input
@@ -61,11 +62,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         onChange={handleChange}
         disabled={disabled}
         className="checkbox__input"
-        aria-label={ariaLabel || (label ? undefined : 'Checkbox')}
-        aria-describedby={ariaDescribedby}
-        aria-errormessage={ariaErrormessage}
-        aria-invalid={props['aria-invalid']}
-        aria-checked={checked !== undefined ? checked : isChecked}
+        aria-label={ariaLabelValue}
         {...props}
       />
       <span className="checkbox__custom" aria-hidden="true"></span>
