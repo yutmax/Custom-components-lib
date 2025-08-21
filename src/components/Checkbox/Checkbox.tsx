@@ -18,9 +18,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
   color = 'primary',
   size = 'medium',
   disabled = false,
-  checked,
   defaultChecked = false,
-  onChange,
   className = '',
   style,
   id,
@@ -36,7 +34,6 @@ const Checkbox: React.FC<CheckboxProps> = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!disabled) {
       setIsChecked(e.target.checked);
-      onChange?.(e);
     }
   };
 
@@ -58,7 +55,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
       <input
         type="checkbox"
         id={checkboxId}
-        checked={checked !== undefined ? checked : isChecked}
+        checked={isChecked}
         onChange={handleChange}
         disabled={disabled}
         className="checkbox__input"

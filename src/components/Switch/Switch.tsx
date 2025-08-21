@@ -15,9 +15,7 @@ const Switch: React.FC<SwitchProps> = ({
   color = 'primary',
   size = 'medium',
   disabled = false,
-  checked,
   defaultChecked = false,
-  onChange,
   className = '',
   style,
   id,
@@ -31,7 +29,6 @@ const Switch: React.FC<SwitchProps> = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!disabled) {
       setIsChecked(e.target.checked);
-      onChange?.(e);
     }
   };
 
@@ -46,17 +43,22 @@ const Switch: React.FC<SwitchProps> = ({
     .join(' ')
     .trim();
 
+  const ariaLabelValue = props['aria-label'] ?? (label ? undefined : 'Switch');
+  const finalAriaChecked =
+    (props as React.InputHTMLAttributes<HTMLInputElement>).checked ?? isChecked;
+
   return (
     <label className={SwitchClass} style={style} htmlFor={switchId}>
       <input
         type="checkbox"
         id={switchId}
-        checked={checked !== undefined ? checked : isChecked}
+        checked={isChecked}
         onChange={handleChange}
         disabled={disabled}
         className="switch__input"
         role="switch"
-        aria-checked={checked !== undefined ? checked : isChecked}
+        aria-checked={finalAriaChecked}
+        aria-label={ariaLabelValue}
         aria-labelledby={label ? `${switchId}-label` : undefined}
         aria-disabled={disabled || undefined}
         {...props}

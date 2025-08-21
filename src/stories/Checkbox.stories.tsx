@@ -23,7 +23,6 @@ export default {
       control: { type: 'select' },
     },
     disabled: { control: 'boolean' },
-    onChange: { action: 'changed' },
   },
 } as Meta<typeof Checkbox>;
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import Switch from './Switch';
 
 describe('Switch Component', () => {
@@ -15,23 +16,25 @@ describe('Switch Component', () => {
     expect(screen.getByText('Test Switch')).toBeInTheDocument();
   });
 
-  it('toggles checked state when clicked', () => {
+  it('toggles checked state when clicked', async () => {
+    const user = userEvent.setup();
     render(<Switch />);
     const switchElement = screen.getByRole('switch');
 
-    fireEvent.click(switchElement);
+    await user.click(switchElement);
     expect(switchElement).toBeChecked();
 
-    fireEvent.click(switchElement);
+    await user.click(switchElement);
     expect(switchElement).not.toBeChecked();
   });
 
-  it('does not toggle when disabled', () => {
+  it('does not toggle when disabled', async () => {
+    const user = userEvent.setup();
     const handleChange = jest.fn();
     render(<Switch disabled onChange={handleChange} />);
     const switchElement = screen.getByRole('switch');
 
-    fireEvent.click(switchElement);
+    await user.click(switchElement);
     expect(switchElement).not.toBeChecked();
     expect(handleChange).not.toHaveBeenCalled();
     expect(switchElement).toBeDisabled();

@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect, useId } from 'react';
+import React, { ReactElement, useState, useId } from 'react';
 import { FaChevronDown } from 'react-icons/fa6';
 import './Select.scss';
 
@@ -34,48 +34,40 @@ const Select: React.FC<SelectProps> = ({
   disabled = false,
   id: propId,
 }) => {
+  const isControlled = value !== undefined;
   const [isOpen, setIsOpen] = useState(open);
-  const [selectedValue, setSelectedValue] = useState(value);
-  const [selectedLabel, setSelectedLabel] = useState('');
+  const [internalValue, setInternalValue] = useState<string | undefined>(value);
 
   const generatedId = useId();
   const id = propId || `select-${generatedId}`;
 
-  useEffect(() => {
-    setSelectedValue(value);
-
-    if (children) {
-      const items = Array.isArray(children) ? children : [children];
-      const selectedItem = items.find((item) => item.props.value === value);
-      if (selectedItem) {
-        setSelectedLabel(selectedItem.props.label || selectedItem.props.value);
-      }
-    }
-  }, [value, children]);
+  const activeValue = isControlled ? value : internalValue;
 
   const toggleDropdown = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!disabled) {
-      setIsOpen(!isOpen);
+      setIsOpen((prev) => !prev);
     }
   };
 
-  const handleItemClick = (value: string, label: string) => {
+  const handleItemClick = (value: string) => {
     if (disabled) return;
-    setSelectedValue(value);
-    setSelectedLabel(label);
+
+    if (!isControlled) {
+      setInternalValue(value);
+    }
     onChange?.(value);
     setIsOpen(false);
   };
 
-  const getSelectedLabel = () => {
-    if (!children) return '';
+  const getLabelByValue = (v?: string) => {
+    if (!children || v === undefined) return '';
     const items = Array.isArray(children) ? children : [children];
-    const selectedItem = items.find((item) => item.props.value === selectedValue);
+    const selectedItem = items.find((item) => item.props.value === v);
     return selectedItem?.props.label || selectedItem?.props.value || '';
   };
 
-  const hasValue = Boolean(selectedValue) || isOpen;
+  const hasValue = Boolean(activeValue) || isOpen;
 
   return (
     <div
@@ -96,17 +88,19 @@ const Select: React.FC<SelectProps> = ({
             {label}
           </label>
         )}
-        <div className="select__selected-value">{selectedLabel || getSelectedLabel()}</div>
+        <div className="select__selected-value">{getLabelByValue(activeValue)}</div>
         <FaChevronDown className="select__chevron" />
       </button>
 
       <ul className="select__dropdown" role="listbox" id={`${id}-dropdown`}>
         {React.Children.map(children, (child) => {
           if (React.isValidElement(child)) {
+            const childValue = child.props.value;
+
             return React.cloneElement(child, {
-              isSelected: child.props.value === selectedValue,
-              onClick: () =>
-                handleItemClick(child.props.value, child.props.label || child.props.value),
+              isSelected: childValue === activeValue,
+              onClick: () => handleItemClick(childValue),
+
               tabIndex: isOpen ? 0 : -1,
             });
           }

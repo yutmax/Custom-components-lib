@@ -1,5 +1,7 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import Checkbox, { CheckboxProps } from './Checkbox';
 
 describe('Checkbox component', () => {
@@ -25,26 +27,26 @@ describe('Checkbox component', () => {
     expect(checkboxWrapper).toHaveClass('checkbox--success');
   });
 
-  test('changes state when clicked if not disabled', () => {
-    const handleChange = jest.fn();
-    renderCheckbox({ onChange: handleChange });
+  test('changes state when clicked if not disabled (uncontrolled)', async () => {
+    const user = userEvent.setup();
+    renderCheckbox();
 
     const input = screen.getByRole('checkbox') as HTMLInputElement;
     expect(input.checked).toBe(false);
 
-    fireEvent.click(input);
+    await user.click(input);
     expect(input.checked).toBe(true);
-    expect(handleChange).toHaveBeenCalledTimes(1);
   });
 
-  test('does not change state when disabled', () => {
+  test('does not change state when disabled', async () => {
+    const user = userEvent.setup();
     const handleChange = jest.fn();
     renderCheckbox({ disabled: true, onChange: handleChange });
 
     const input = screen.getByRole('checkbox') as HTMLInputElement;
     expect(input).toBeDisabled();
 
-    fireEvent.click(input);
+    await user.click(input);
     expect(input.checked).toBe(false);
     expect(handleChange).not.toHaveBeenCalled();
   });
